@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1728913491 source:j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\main.c
+	<stdio.h>
+	<stdlib.h>
+
