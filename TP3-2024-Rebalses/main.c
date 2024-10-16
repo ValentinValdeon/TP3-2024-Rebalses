@@ -1,23 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Prestadores.h"
-#define VIRGEN -1
-#define LIBRE 0
-#define RAL_FACTOR
-#define RAC_FACTOR
-#define RS_FACTOR
+#include "RAL.h"
+#include "RAC.h"
+#include "RS.h"
+
 
 void gotoxy(int x, int y)
 {
     printf("%c[%d;%df", 0x1B, y, x);
 }
 
-int compararEstructuras(Envio RAL[], Envio RAC[], Lista RS[],int *cantRAC, int *cantRAL)
+int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRAC, int *cantRAL)
 {
 
-    FILE* fp = fopen("Envios.txt", "r");
-    Envio aux, e;
-    char cod[8];
+    FILE* fp = fopen("Operaciones-Prestadores.txt", "r");
+    Prestador aux, p;
+    long dniX=0;
     int op, i;
 
     *cantRAL=0;
@@ -54,41 +53,30 @@ int compararEstructuras(Envio RAL[], Envio RAC[], Lista RS[],int *cantRAC, int *
         {
 
             fscanf(fp, "%d", &op);
-
             if(op==1 || op==2)
             {
-                fscanf(fp," %[^\n]", aux.codigo);
-                fscanf(fp,"%d", &(aux.dniRec));
-                fscanf(fp," %[^\n]", aux.nombreRec);
-                fscanf(fp," %[^\n]", aux.direccion);
-                fscanf(fp,"%d", &(aux.dniRem));
-                fscanf(fp," %[^\n]", aux.nombreRem);
-                fscanf(fp," %[^\n]", aux.fechaE);
-                fscanf(fp," %[^\n]", aux.fechaR);
+                fscanf(fp," %ld", (&aux.dni));
+                fscanf(fp," %[^\n]", aux.nombre_y_apellido);
+                fscanf(fp," %[^\n]", aux.servicios);
+                fscanf(fp," %[^\n]", aux.domicilio);
+                fscanf(fp," %[^\n]", aux.mail);
+                fscanf(fp," %[^\n]", aux.telefono);
 
-                for(i=0; i<7; i++)
+                for(i=0; i<81; i++)
                 {
-                    aux.codigo[i] = toupper(aux.codigo[i]);
+                    aux.nombre_y_apellido[i] = toupper(aux.nombre_y_apellido[i]);
                 }
                 for(i=0; i<81; i++)
                 {
-                    aux.nombreRec[i] = toupper(aux.nombreRec[i]);
+                    aux.servicios[i] = toupper(aux.servicios[i]);
                 }
                 for(i=0; i<81; i++)
                 {
-                    aux.direccion[i] = toupper(aux.direccion[i]);
-                }
-                for(i=0; i<81; i++)
-                {
-                    aux.nombreRem[i] = toupper(aux.nombreRem[i]);
+                    aux.domicilio[i] = toupper(aux.domicilio[i]);
                 }
                 for(i=0; i<11; i++)
                 {
-                    aux.fechaE[i] = toupper(aux.fechaE[i]);
-                }
-                for(i=0; i<11; i++)
-                {
-                    aux.fechaR[i] = toupper(aux.fechaR[i]);
+                    aux.mail[i] = toupper(aux.mail[i]);
                 }
 
                 if(op==1)
@@ -111,13 +99,9 @@ int compararEstructuras(Envio RAL[], Envio RAC[], Lista RS[],int *cantRAC, int *
             }
             else
             {
-                fscanf(fp, " %[^\n]", cod);
-                for(i=0; i<7; i++)
-                {
-                    cod[i] = toupper(cod[i]);
-                }
+                fscanf(fp, "%ld", (&dniX));
 
-                if(evocarRAL( RAL,&e,cod, &evoRAL)==1)
+                if(evocarRAL( RAL,&p,dniX, &evoRAL)==1)
                 {
                     // Suma para sacar la media
                     sumaEvoERAL = sumaEvoERAL + evoRAL;
@@ -138,7 +122,7 @@ int compararEstructuras(Envio RAL[], Envio RAC[], Lista RS[],int *cantRAC, int *
                     cantEvoFRAL++;
                 }
 
-                if(evocarRAC(RAC, &e,cod, &evoRAC )==1)
+                if(evocarRAC(RAC, &p,dniX, &evoRAC )==1)
                 {
                     // Suma para sacar la media
                     sumaEvoERAC = sumaEvoERAC + evoRAC;
@@ -159,7 +143,7 @@ int compararEstructuras(Envio RAL[], Envio RAC[], Lista RS[],int *cantRAC, int *
                     cantEvoFRAC++;
                 }
                 //EVOCACIONES LI
-                if(evocarRS(RS, cod, &e, &evoRS)==1)
+                if(evocarRS(RS, dniX, &p, &evoRS)==1)
                 {
                     // Suma para sacar la media
                     sumaEvoERS = sumaEvoERS + evoRS;
@@ -254,8 +238,8 @@ int compararEstructuras(Envio RAL[], Envio RAC[], Lista RS[],int *cantRAC, int *
 
 int main()
 {
-    Envio RAL[RAL_FACTOR];
-    Envio RAC[RAC_FACTOR];
+    Prestador RAL[RAL_FACTOR];
+    Prestador RAC[RAC_FACTOR];
     Lista RS[RS_FACTOR];
 
     initRAL(RAL);
@@ -293,7 +277,7 @@ int main()
         case 3:
             for(i=0; i<RAC_FACTOR; i++)
             {
-                if(strcmp(RAC[i].codigo,VIRGEN)==0 || strcmp(RAC[i].codigo,LIBRE)==0)
+                if(RAC[i].dni == VIRGEN || RAC[i].dni == LIBRE)
                 {
                     vacio++;
                 }
@@ -306,7 +290,7 @@ int main()
             {
                 for(i=0; i<RAC_FACTOR; i++)
                 {
-                    if(strcmp(RAC[i].codigo,VIRGEN)==0)
+                    if(RAC[i].dni==VIRGEN)
                     {
                         printf("\n---------------------------------------------------------------");
                         printf("\n%d",i);
@@ -314,7 +298,7 @@ int main()
                         printf("\nPresione ENTER para continuar");
                         getchar();
                     }
-                    else if(strcmp(RAC[i].codigo,LIBRE)==0)
+                    else if(RAC[i].dni == LIBRE)
                     {
                         printf("\n---------------------------------------------------------------");
                         printf("\n%d",i);
@@ -325,18 +309,8 @@ int main()
                     else
                     {
                         printf("\n---------------------------------------------------------------");
-                        printf("\n%d",i);
-                        printf("\nCodigo del envio: %s", RAC[i].codigo);
-                        printf("\n--------DATOS DEL RECEPTOR--------");
-                        printf("\nNombre y Apellido: %s", RAC[i].nombreRec);
-                        printf("\nDNI: %ld", RAC[i].dniRec);
-                        printf("\nDomicilio: %s", RAC[i].direccion);
-                        printf("\n--------DATOS DEL REMITENTE--------");
-                        printf("\nNombre y Apellido: %s", RAC[i].nombreRem);
-                        printf("\nDNI: %ld", RAC[i].dniRem);
-                        printf("\n--------DATOS DEL ENVIO--------");
-                        printf("\nFecha de Envio: %s", RAC[i].fechaE);
-                        printf("\nFecha de Llegada: %s", RAC[i].fechaR);
+                        printf("\n%d\n",i);
+                        MostrarPrestador(RAC[i]);
                         printf("\nPresione ENTER para continuar");
                         getchar();
                     }
@@ -348,7 +322,7 @@ int main()
             vacio=0;
             for(i=0; i<RAL_FACTOR; i++)
             {
-                if(strcmp(RAL[i].codigo,VIRGEN)==0 || strcmp(RAL[i].codigo,LIBRE)==0)
+                if(RAL[i].dni==VIRGEN || RAL[i].dni==LIBRE)
                 {
                     vacio++;
                 }
@@ -361,7 +335,7 @@ int main()
             {
                 for(i=0; i<RAL_FACTOR; i++)
                 {
-                    if(strcmp(RAL[i].codigo,VIRGEN)==0)
+                    if(RAL[i].dni==VIRGEN)
                     {
                         printf("\n---------------------------------------------------------------");
                         printf("\n%d",i);
@@ -369,7 +343,7 @@ int main()
                         printf("\nPresione ENTER para continuar");
                         getchar();
                     }
-                    else if(strcmp(RAL[i].codigo,LIBRE) == 0)
+                    else if(RAL[i].dni==LIBRE)
                     {
                         printf("\n---------------------------------------------------------------");
                         printf("\n%d",i);
@@ -380,18 +354,8 @@ int main()
                     else
                     {
                         printf("\n---------------------------------------------------------------");
-                        printf("\n%d",i);
-                        printf("\nCodigo del envio: %s", RAL[i].codigo);
-                        printf("\n--------DATOS DEL RECEPTOR--------");
-                        printf("\nNombre y Apellido: %s", RAL[i].nombreRec);
-                        printf("\nDNI: %ld", RAL[i].dniRec);
-                        printf("\nDomicilio: %s", RAL[i].direccion);
-                        printf("\n--------DATOS DEL REMITENTE--------");
-                        printf("\nNombre y Apellido: %s",RAL[i].nombreRem);
-                        printf("\nDNI: %ld", RAL[i].dniRem);
-                        printf("\n--------DATOS DEL ENVIO--------");
-                        printf("\nFecha de Envio: %s", RAL[i].fechaE);
-                        printf("\nFecha de Llegada: %s", RAL[i].fechaR);
+                        printf("\n%d\n",i);
+                        MostrarPrestador(RAL[i]);
                         printf("\nPresione ENTER para continuar");
                         getchar();
                     }
@@ -433,18 +397,8 @@ int main()
                         while(pos!=NULL)
                         {
                             printf("\n---------------------------------------------------------------");
-                            printf("\n%d",i);
-                            printf("\nCodigo del envio: %s",pos->dato.codigo);
-                            printf("\n--------DATOS DEL RECEPTOR--------");
-                            printf("\nNombre y Apellido: %s", pos->dato.nombreRec);
-                            printf("\nDNI: %ld", pos->dato.dniRec);
-                            printf("\nDomicilio: %s", pos->dato.direccion);
-                            printf("\n--------DATOS DEL REMITENTE--------");
-                            printf("\nNombre y Apellido: %s",pos->dato.nombreRem);
-                            printf("\nDNI: %ld",pos->dato.dniRem);
-                            printf("\n--------DATOS DEL ENVIO--------");
-                            printf("\nFecha de Envio: %s", pos->dato.fechaE);
-                            printf("\nFecha de Llegada: %s", pos->dato.fechaR);
+                            printf("\n%d\n",i);
+                            MostrarPrestador(pos->dato);
                             printf("\nPresione ENTER para continuar");
 
                             getchar();

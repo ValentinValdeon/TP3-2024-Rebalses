@@ -1,5 +1,11 @@
 #ifndef PRESTADORES_H_INCLUDED
 #define PRESTADORES_H_INCLUDED
+#define VIRGEN -1
+#define LIBRE 0
+#define RAL_FACTOR 133
+#define RAC_FACTOR 127
+#define RS_FACTOR 64
+
 typedef struct {
     long dni;
     char nombre_y_apellido[80];
@@ -28,5 +34,15 @@ int compararPrestador(Prestador p1, Prestador p2) {
     return 0;
 }
 
+int hashing(long dni, int M) {
+    char x[10];
+    long longitud;
+    int i, contenedor = 0;
+    sprintf(x, "%ld", dni);
+    longitud = strlen(x);
+    for (i = 0; i < longitud; i++)
+        contenedor += ((int)x[i]) * (i + 1);
+    return (contenedor % M);
+}
 
 #endif // PRESTADORES_H_INCLUDED

@@ -1,5 +1,7 @@
 #ifndef RAL_H_INCLUDED
 #define RAL_H_INCLUDED
+#include "Prestadores.h"
+
 void initRAL(Prestador lista[]){
     int i;
 
@@ -9,7 +11,7 @@ void initRAL(Prestador lista[]){
 }
 
 int localizarRAL(Prestador lista[], long dniX, int *pos, int *celdas){
-    int i = hashing(codigo, RAL_FACTOR);
+    int i = hashing(dniX, RAL_FACTOR);
     int primerLibre = -1;
     int vistos = 0;
 
@@ -55,7 +57,7 @@ int bajaRAL(Prestador lista[], Prestador p, int *cant){
     int pos, celdas;
 
     if(localizarRAL(lista, p.dni, &pos, &celdas) && compararPrestador(lista[pos],p)){
-        lista[pos].dni=LIBRE
+        lista[pos].dni=LIBRE;
         (*cant)--;
         return 1;
     }else{

@@ -2,19 +2,20 @@
 #define RS_H_INCLUDED
 #include "Prestadores.h"
 
-typedef struct {
-    Envio dato;
+
+typedef struct Nodo {
+    Prestador dato;
     struct Nodo *sig;
-}Nodo;
+} Nodo;
 
 typedef struct {
     Nodo *acc;
-}Lista;
+} Lista;
 
 void initRS(Lista l[]){
     int i;
 
-    for(i=0 ; i<RS_FACTOR ; i++){
+    for(i = 0; i < RS_FACTOR; i++){
         l[i].acc = NULL;
     }
 }
@@ -24,20 +25,19 @@ void limpiarRS(Lista l[]){
     Nodo* pos = NULL;
     Nodo* aux = NULL;
 
-    for(i=0 ; i<RS_FACTOR ; i++){
+    for(i = 0; i < RS_FACTOR; i++){
         pos = l[i].acc;
         aux = l[i].acc;
         while(pos != NULL){
             pos = aux->sig;
             free(aux);
             aux = pos;
-             free((void*)aux);
         }
         l[i].acc = NULL;
     }
 }
 
-Nodo* crearNodo(Envio dato){
+Nodo* crearNodo(Prestador dato){
     Nodo* nuevoNodo = (Nodo*)malloc(sizeof(Nodo));
 
     if(nuevoNodo!=NULL){
@@ -48,13 +48,13 @@ Nodo* crearNodo(Envio dato){
     return nuevoNodo;
 }
 
-int localizarRS(Lista lista[], char codigo[], int *i, int *celdas, Nodo **pos, Nodo **aux){
-    *i = hashing(codigo, RS_FACTOR);
+int localizarRS(Lista lista[], long dni, int *i, int *celdas, Nodo **pos, Nodo **aux){
+    *i = hashing(dni, RS_FACTOR);
 
     (*pos) = lista[*i].acc;
     (*aux) = lista[*i].acc;
 
-    while((*pos) != NULL && strcmp(codigo, (*pos)->dato.codigo)!=0){
+    while((*pos) != NULL && dni != (*pos)->dato.dni){
         (*aux) = (*pos);
         (*pos) = (*aux)->sig;
 
@@ -68,7 +68,7 @@ int localizarRS(Lista lista[], char codigo[], int *i, int *celdas, Nodo **pos, N
     else return 0;
 }
 
-int altaRS(Lista lista[], Envio dato){
+int altaRS(Lista lista[], Prestador dato){
     Nodo* nuevoNodo = crearNodo(dato);
     int celdas;
 
@@ -78,7 +78,7 @@ int altaRS(Lista lista[], Envio dato){
         Nodo* aux = NULL;
         int i;
 
-        if(localizarRS(lista, dato.codigo, &i, &celdas, &pos, &aux)){
+        if(localizarRS(lista, dato.dni, &i, &celdas, &pos, &aux)){
             free(nuevoNodo);
             return 0;
         }else{
@@ -90,12 +90,12 @@ int altaRS(Lista lista[], Envio dato){
     }
 }
 
-int bajaRS(Lista lista[], Envio dato){
+int bajaRS(Lista lista[], Prestador dato){
     Nodo* pos = NULL;
     Nodo* aux = NULL;
     int i, celdas;
 
-    if(localizarRS(lista, dato.codigo, &i, &celdas, &pos, &aux) && strcmp(pos->dato.direccion, dato.direccion) == 0 && pos->dato.dniRec == dato.dniRec && pos->dato.dniRem == dato.dniRem && strcmp(pos->dato.fechaE, dato.fechaE)==0 && strcmp(pos->dato.fechaR, dato.fechaR)==0 && strcmp(pos->dato.nombreRec, dato.nombreRec)==0 && strcmp(pos->dato.nombreRem, dato.nombreRem)==0){
+    if(localizarRS(lista, dato.dni, &i, &celdas, &pos, &aux) && compararPrestador(lista[i].acc->dato,dato)){
         if(pos == aux){
             aux = pos->sig;
             lista[i].acc = aux;
@@ -113,17 +113,16 @@ int bajaRS(Lista lista[], Envio dato){
     }
 }
 
-int evocarRS(Lista lista[], char cod[], Envio *dato, int *celdas){
+int evocarRS(Lista lista[], long dni, Prestador *dato, int *celdas){
     Nodo* pos = NULL;
     Nodo* aux = NULL;
     int i;
 
-    if(localizarRS(lista, cod, &i, celdas, &pos, &aux)){
+    if(localizarRS(lista, dni, &i, celdas, &pos, &aux)){
         *dato = pos->dato;
         return 1;
     }
 
     return 0;
 }
-
 #endif // RS_H_INCLUDED

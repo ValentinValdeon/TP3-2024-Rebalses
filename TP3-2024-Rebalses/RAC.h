@@ -1,6 +1,6 @@
 #ifndef RAC_H_INCLUDED
 #define RAC_H_INCLUDED
-
+#include "Prestadores.h"
 
 void initRAC(Prestador lista[]){
     int i;
@@ -10,7 +10,7 @@ void initRAC(Prestador lista[]){
 }
 
 int localizarRAC(Prestador lista[], long dniX, int *pos, int *celdas){
-    int i = hashing(codigo, RAC_FACTOR);
+    int i = hashing(dniX, RAC_FACTOR);
     int primeraLibre = -1;
     int vistos = 0;
 
