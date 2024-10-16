@@ -9,7 +9,7 @@ void initRAC(Prestador lista[]){
     }
 }
 
-int localizarRAC(Prestador lista[], long dniX, int *pos, int *celdas){
+int localizarRAC(Prestador lista[], int dniX, int *pos, int *celdas){
     int i = hashing(dniX, RAC_FACTOR);
     int primeraLibre = -1;
     int vistos = 0;
@@ -70,7 +70,7 @@ int bajaRAC(Prestador lista[], Prestador p, int *cant){
     }
 }
 
-int evocarRAC(Prestador lista[], Prestador *p, long dniX, int *celdas){
+int evocarRAC(Prestador lista[], Prestador *p, int dniX, int *celdas){
     int pos;
 
     if(localizarRAC(lista, dniX, &pos, celdas)==1){

@@ -48,7 +48,7 @@ Nodo* crearNodo(Prestador dato){
     return nuevoNodo;
 }
 
-int localizarRS(Lista lista[], long dni, int *i, int *celdas, Nodo **pos, Nodo **aux){
+int localizarRS(Lista lista[], int dni, int *i, int *celdas, Nodo **pos, Nodo **aux){
     *i = hashing(dni, RS_FACTOR);
 
     (*pos) = lista[*i].acc;
@@ -113,7 +113,7 @@ int bajaRS(Lista lista[], Prestador dato){
     }
 }
 
-int evocarRS(Lista lista[], long dni, Prestador *dato, int *celdas){
+int evocarRS(Lista lista[], int dni, Prestador *dato, int *celdas){
     Nodo* pos = NULL;
     Nodo* aux = NULL;
     int i;

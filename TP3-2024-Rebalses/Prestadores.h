@@ -3,11 +3,11 @@
 #define VIRGEN -1
 #define LIBRE 0
 #define RAL_FACTOR 133
-#define RAC_FACTOR 127
+#define RAC_FACTOR 131
 #define RS_FACTOR 64
 
 typedef struct {
-    long dni;
+    int dni;
     char nombre_y_apellido[80];
     char servicios[120];
     char domicilio[80];
@@ -17,7 +17,7 @@ typedef struct {
 
 
 void MostrarPrestador(Prestador prestador) {
-    printf("DNI: %ld\n", prestador.dni);
+    printf("DNI: %d\n", prestador.dni);
     printf("Nombre y Apellido: %s\n", prestador.nombre_y_apellido);
     printf("Servicios: %s\n", prestador.servicios);
     printf("Domicilio: %s\n", prestador.domicilio);
@@ -34,11 +34,11 @@ int compararPrestador(Prestador p1, Prestador p2) {
     return 0;
 }
 
-int hashing(long dni, int M) {
+int hashing(int dni, int M) {
     char x[10];
-    long longitud;
+    int longitud;
     int i, contenedor = 0;
-    sprintf(x, "%ld", dni);
+    sprintf(x, "%d", dni);
     longitud = strlen(x);
     for (i = 0; i < longitud; i++)
         contenedor += ((int)x[i]) * (i + 1);

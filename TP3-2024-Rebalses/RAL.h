@@ -10,7 +10,7 @@ void initRAL(Prestador lista[]){
     }
 }
 
-int localizarRAL(Prestador lista[], long dniX, int *pos, int *celdas){
+int localizarRAL(Prestador lista[], int dniX, int *pos, int *celdas){
     int i = hashing(dniX, RAL_FACTOR);
     int primerLibre = -1;
     int vistos = 0;
@@ -65,7 +65,7 @@ int bajaRAL(Prestador lista[], Prestador p, int *cant){
     }
 }
 
-int evocarRAL(Prestador lista[], Prestador *p, long dniX,int *celdas){
+int evocarRAL(Prestador lista[], Prestador *p, int dniX,int *celdas){
     int pos;
 
     if(localizarRAL(lista, dniX, &pos, celdas)){

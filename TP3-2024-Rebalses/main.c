@@ -16,7 +16,7 @@ int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRA
 
     FILE* fp = fopen("Operaciones-Prestadores.txt", "r");
     Prestador aux, p;
-    long dniX=0;
+    int dniX=0;
     int op, i;
 
     *cantRAL=0;
@@ -55,7 +55,7 @@ int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRA
             fscanf(fp, "%d", &op);
             if(op==1 || op==2)
             {
-                fscanf(fp," %ld", (&aux.dni));
+                fscanf(fp," %d", (&aux.dni));
                 fscanf(fp," %[^\n]", aux.nombre_y_apellido);
                 fscanf(fp," %[^\n]", aux.servicios);
                 fscanf(fp," %[^\n]", aux.domicilio);
@@ -99,7 +99,7 @@ int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRA
             }
             else
             {
-                fscanf(fp, "%ld", (&dniX));
+                fscanf(fp, "%d", (&dniX));
 
                 if(evocarRAL( RAL,&p,dniX, &evoRAL)==1)
                 {
