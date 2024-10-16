@@ -14,7 +14,7 @@ void gotoxy(int x, int y)
 int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRAC, int *cantRAL)
 {
 
-    FILE* fp = fopen("Operacionespruebacompleto.txt", "r");
+    FILE* fp = fopen("Operaciones-Prestadores.txt", "r");
     Prestador aux, p;
     int dniX=0;
     int op, i;
@@ -249,7 +249,7 @@ int main()
     limpiarRS(RS);
     int cantRAC=0,cantRAL=0;
     int i=0;
-    int vacio=0;
+    int vacio=0,respRS=0;
     int opcion;
     Nodo* pos = NULL;
 
@@ -274,50 +274,6 @@ int main()
             system("pause");
             system("cls");
             break;
-        case 3:
-            for(i=0; i<RAC_FACTOR; i++)
-            {
-                if(RAC[i].dni == VIRGEN || RAC[i].dni == LIBRE)
-                {
-                    vacio++;
-                }
-            }
-            if(vacio == RAC_FACTOR)
-            {
-                printf("No existen envios cargados");
-            }
-            else
-            {
-                for(i=0; i<RAC_FACTOR; i++)
-                {
-                    if(RAC[i].dni==VIRGEN)
-                    {
-                        printf("\n---------------------------------------------------------------");
-                        printf("\n%d",i);
-                        printf("\nCelda virgen");
-                        printf("\nPresione ENTER para continuar");
-                        getchar();
-                    }
-                    else if(RAC[i].dni == LIBRE)
-                    {
-                        printf("\n---------------------------------------------------------------");
-                        printf("\n%d",i);
-                        printf("\nCelda libre");
-                        printf("\nPresione ENTER para continuar");
-                        getchar();
-                    }
-                    else
-                    {
-                        printf("\n---------------------------------------------------------------");
-                        printf("\n%d\n",i);
-                        MostrarPrestador(RAC[i]);
-                        printf("\nPresione ENTER para continuar");
-                        getchar();
-                    }
-                }
-            }
-            system("cls");
-            break;
         case 2:
             vacio=0;
             for(i=0; i<RAL_FACTOR; i++)
@@ -329,7 +285,7 @@ int main()
             }
             if(vacio == RAL_FACTOR)
             {
-                printf("No existen envios cargados");
+                printf("No existen prestadores cargados\n");
             }
             else
             {
@@ -361,11 +317,60 @@ int main()
                     }
                 }
             }
+            system("pause");
             system("cls");
             break;
-
+        case 3:
+            for(i=0; i<RAC_FACTOR; i++)
+            {
+                if(RAC[i].dni == VIRGEN || RAC[i].dni == LIBRE)
+                {
+                    vacio++;
+                }
+            }
+            if(vacio == RAC_FACTOR)
+            {
+                printf("No existen prestadores cargados\n");
+            }
+            else
+            {
+                for(i=0; i<RAC_FACTOR; i++)
+                {
+                    if(RAC[i].dni==VIRGEN)
+                    {
+                        printf("\n---------------------------------------------------------------");
+                        printf("\n%d",i);
+                        printf("\nCelda virgen");
+                        printf("\nPresione ENTER para continuar");
+                        getchar();
+                    }
+                    else if(RAC[i].dni == LIBRE)
+                    {
+                        printf("\n---------------------------------------------------------------");
+                        printf("\n%d",i);
+                        printf("\nCelda libre");
+                        printf("\nPresione ENTER para continuar");
+                        getchar();
+                    }
+                    else
+                    {
+                        printf("\n---------------------------------------------------------------");
+                        printf("\n%d\n",i);
+                        MostrarPrestador(RAC[i]);
+                        printf("\nPresione ENTER para continuar");
+                        getchar();
+                    }
+                }
+            }
+            system("pause");
+            system("cls");
+            break;
         case 4:
-
+            printf("Seleccione una opcion\n");
+            printf("1- Mostrar datos completos\n");
+            printf("2- Mostrar rebalse grafico (solo dni)\n");
+            printf("Opcion: ");
+            scanf("%d",&respRS);
             vacio = 0;
             for(i=0; i<RS_FACTOR; i++)
             {
@@ -374,51 +379,57 @@ int main()
                     vacio++;
                 }
             }
-            if(vacio == RS_FACTOR)
-            {
-                printf("No existen envios cargados");
-            }
-            else
-            {
+            if(respRS==1){
+                if(vacio == RS_FACTOR)
+                {
+                    printf("No existen prestadores cargados\n");
+
+                }
+                else
+                {
+                    for(i=0; i<RS_FACTOR; i++)
+                    {
+                        if(RS[i].acc == NULL)
+                        {
+                            printf("\n---------------------------------------------------------------");
+                            printf("\n%d",i);
+                            printf("\nLista vacia");
+                            printf("\nPresione ENTER para continuar");
+                            getchar();
+                        }
+                        else
+                        {
+                            pos = RS[i].acc;
+
+                            while(pos!=NULL)
+                            {
+                                printf("\n---------------------------------------------------------------");
+                                printf("\n%d\n",i);
+                                MostrarPrestador(pos->dato);
+                                printf("\nPresione ENTER para continuar");
+
+                                getchar();
+                                pos = pos->sig;
+                            }
+                        }
+                    }
+                }
+            }else{
                 for(i=0; i<RS_FACTOR; i++)
                 {
                     pos = RS[i].acc;
-                    printf("Ranura %d===>",i);
+                    printf("Cabecera %d ===> ",i);
                     while(pos !=NULL){
                         printf("|%d|-->",pos->dato.dni);
                         pos = pos->sig;
                     }
-                    if(pos==NULL) printf("///");
+                    if(pos==NULL) printf("//");
                     printf("\n");
-                    /*
-                    if(RS[i].acc == NULL)
-                    {
-                        printf("\n---------------------------------------------------------------");
-                        printf("\n%d",i);
-                        printf("\nLista vacia");
-                        printf("\nPresione ENTER para continuar");
-                        getchar();
-                    }
-                    else
-                    {
-                        pos = RS[i].acc;
-
-                        while(pos!=NULL)
-                        {
-                            printf("\n---------------------------------------------------------------");
-                            printf("\n%d\n",i);
-                            MostrarPrestador(pos->dato);
-                            printf("\nPresione ENTER para continuar");
-
-                            getchar();
-                            pos = pos->sig;
-                        }
-                    }
-                    */
                 }
             }
-            getchar();
+            system("pause");
             system("cls");
+            respRS=0;
             break;
         }
     }

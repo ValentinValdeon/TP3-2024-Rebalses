@@ -4,7 +4,7 @@
 #define LIBRE 0
 #define RAL_FACTOR 133
 #define RAC_FACTOR 131
-#define RS_FACTOR 9
+#define RS_FACTOR 64
 
 typedef struct {
     int dni;
