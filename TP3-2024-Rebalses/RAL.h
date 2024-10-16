@@ -67,7 +67,7 @@ int bajaRAL(Prestador lista[], Prestador p, int *cant){
 
 int evocarRAL(Prestador lista[], Prestador *p, int dniX,int *celdas){
     int pos;
-
+    (*celdas)=0;
     if(localizarRAL(lista, dniX, &pos, celdas)){
         *p = lista[pos];
         return 1;

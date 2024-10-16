@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1729095699 source:j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\main.c
+1729104778 source:j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Prestadores.h"
@@ -7,14 +7,14 @@
 	"RAC.h"
 	"RS.h"
 
-1729095911 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\prestadores.h
+1729105341 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\prestadores.h
 
-1729095699 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\ral.h
+1729097183 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\ral.h
 	"Prestadores.h"
 
-1729095699 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\rac.h
+1729097183 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\rac.h
 	"Prestadores.h"
 
-1729095699 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\rs.h
+1729106333 j:\uni\eda\eda-4ta cursada\tp3\tp3-2024-rebalses\tp3-2024-rebalses\rs.h
 	"Prestadores.h"
 

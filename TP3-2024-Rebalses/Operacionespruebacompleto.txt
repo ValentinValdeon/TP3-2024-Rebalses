@@ -1,0 +1,104 @@
+1
+874
+Julio Argentino Roca
+Mecanico
+BULEVAR ALBERTO OLIVERA 11556
+26798818@server.com
+254-3765438
+1
+256
+Manuel Quintana
+Pintura
+EULALIO ASTUDILLO 100
+24586497@speedy.com
+384-5722729
+1
+631
+Jose Figueroa Alcorta
+Paisajista
+DORREGO Y SAN LUIS 10
+28834062@hotmail.com
+333-4566593
+1
+914
+Roque Saenz Pena
+Plomeria - Gasista
+RIVADAVIA NORTE 11367
+25247160@outlook.com
+352-6073688
+1
+378
+Victorino de la Plaza
+Pintura - Carpinteria
+CABALLITO ARGENTINO 100
+32535423@msn.com
+463-5380201
+1
+589
+Hipolito Yrigoyen
+Zapateria
+RUTA NÂ°6 KM 30 100
+29848417@claro.com
+57-26428816
+1
+230
+Marcelo T. de Alvear
+Albanil
+GUEMES 165
+38662277@mail.com
+261-4525226
+1
+482
+Hipolito Yrigoyen
+Plomeria
+PEDERNERA 10
+31875516@gmail.com
+264-3144453
+1
+127
+Enrique Martinez
+Carpinteria
+25 DE AGOSTO OESTE 1338
+26352036@mimail.com
+254-1955434
+3
+923
+3
+260
+3
+1000
+3
+90
+3
+256
+3
+631
+3
+874
+2
+127
+Enrique Martinez
+Carpinteria
+25 DE AGOSTO OESTE 1338
+26352036@mimail.com
+254-1955434
+2
+914
+Roque Saenz Pena
+Plomeria - Gasista
+RIVADAVIA NORTE 11367
+25247160@outlook.com
+352-6073688
+2
+631
+Jose Figueroa Alcorta
+Paisajista
+DORREGO Y SAN LUIS 10
+28834062@hotmail.com
+333-4566593
+3
+127
+3
+589
+3
+763

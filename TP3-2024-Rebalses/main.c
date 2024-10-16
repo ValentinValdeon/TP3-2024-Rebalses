@@ -14,7 +14,7 @@ void gotoxy(int x, int y)
 int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRAC, int *cantRAL)
 {
 
-    FILE* fp = fopen("Operaciones-Prestadores.txt", "r");
+    FILE* fp = fopen("Operacionespruebacompleto.txt", "r");
     Prestador aux, p;
     int dniX=0;
     int op, i;
@@ -382,6 +382,15 @@ int main()
             {
                 for(i=0; i<RS_FACTOR; i++)
                 {
+                    pos = RS[i].acc;
+                    printf("Ranura %d===>",i);
+                    while(pos !=NULL){
+                        printf("|%d|-->",pos->dato.dni);
+                        pos = pos->sig;
+                    }
+                    if(pos==NULL) printf("///");
+                    printf("\n");
+                    /*
                     if(RS[i].acc == NULL)
                     {
                         printf("\n---------------------------------------------------------------");
@@ -405,8 +414,10 @@ int main()
                             pos = pos->sig;
                         }
                     }
+                    */
                 }
             }
+            getchar();
             system("cls");
             break;
         }

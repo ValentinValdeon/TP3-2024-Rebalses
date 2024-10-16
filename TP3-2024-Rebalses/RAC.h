@@ -72,7 +72,7 @@ int bajaRAC(Prestador lista[], Prestador p, int *cant){
 
 int evocarRAC(Prestador lista[], Prestador *p, int dniX, int *celdas){
     int pos;
-
+    (*celdas)=0;
     if(localizarRAC(lista, dniX, &pos, celdas)==1){
         *p = lista[pos];
         return 1;
