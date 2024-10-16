@@ -5,6 +5,40 @@
 #include "RAC.h"
 #include "RS.h"
 
+//Analisis de resultados
+
+// Rebalse Abierto Linal
+// Costos maximos ->    Evocacion Exitosa= 55         Evocacion Fracaso= 62
+// Costos Medios  ->    Evocacion Exitosa= 2.68       Evocacion Fracaso= 24.77
+
+// Rebalse Abierto Cuadratico
+// Costos maximos ->    Evocacion Exitosa= 26         Evocacion Fracaso= 131
+// Costos Medios  ->    Evocacion Exitosa= 2.00       Evocacion Fracaso= 14.35
+
+// Rebalse Separado
+// Costos maximos ->    Evocacion Exitosa= 7          Evocacion Fracaso= 4
+// Costos Medios  ->    Evocacion Exitosa= 1.55       Evocacion Fracaso= 1.18
+/*
+Rebalse Abierto Linal
+
+En términos de costos máximos, el rebalse abierto lineal es la que más baldes consulta (evocacion exitosa y que fracasa).
+En términos de costos medios, es relativamente costosa en caso de evocación fallida (24.77 baldes como media). Pero, para evocación exitosa, el costo medio es moderado (2.68 baldes).
+Es la peor estructura para evocaciones fracasadas debido a sus altos costos tanto máximos como medios. En evocaciones exitosas, es decente pero pueden ser mejores los costos si utilizamos una mejor estructura.
+
+
+Rebalse Abierto Cuadrático
+En costos máximos, es mucho más eficiente en evocaciones exitosas (26 frente a 55 del Rebalse Abierto Linal), pero tiene un costo máximo muy alto en evocaciones fracasadas (131).
+En costos medios, es mejor que el Rebalse Abierto Linal en ambos casos, especialmente en evocaciones fracasadas (14.35 comparado con 24.77).
+Es una buena estructura para evocaciones exitosas debido a su bajo costo medio y su costo máximo moderado. Para evocaciones fracasadas, es mejor que el Rebalse Abierto Linal pero sigue siendo muy costosa.
+
+
+Rebalse Separado
+En costos máximos, es la estructura más eficiente en ambos casos, con valores muy bajos tanto en evocaciones exitosas (7) como en fracasadas (4).
+En costos medios, tambien es la más eficiente en ambos casos. La evocación exitosa tiene un costo promedio de 1.55 baldes, y la fallida apenas cuesta 1.18 de media.
+Esta es claramente la mejor estructura en términos de costo general para evocaciones exitosas y fracasadas. Tiene los costos máximos y medios más bajos en ambos casos.
+
+*/
+
 
 void gotoxy(int x, int y)
 {
@@ -62,22 +96,24 @@ int compararEstructuras(Prestador RAL[], Prestador RAC[], Lista RS[],int *cantRA
                 fscanf(fp," %[^\n]", aux.mail);
                 fscanf(fp," %[^\n]", aux.telefono);
 
-                for(i=0; i<81; i++)
+                for(i=0; i<80; i++)
                 {
                     aux.nombre_y_apellido[i] = toupper(aux.nombre_y_apellido[i]);
                 }
-                for(i=0; i<81; i++)
+                for(i=0; i<120; i++)
                 {
                     aux.servicios[i] = toupper(aux.servicios[i]);
                 }
-                for(i=0; i<81; i++)
+                for(i=0; i<80; i++)
                 {
                     aux.domicilio[i] = toupper(aux.domicilio[i]);
                 }
-                for(i=0; i<11; i++)
+                for(i=0; i<50; i++)
                 {
                     aux.mail[i] = toupper(aux.mail[i]);
                 }
+                  for(i=0; i<50; i++)
+
 
                 if(op==1)
                 {
